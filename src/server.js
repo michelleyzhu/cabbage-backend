@@ -2,7 +2,10 @@ import express from 'express'
 import bodyParser from "body-parser"
 import {MongoClient} from "mongodb"
 import path from 'path'
+
+const express = require("express")
 const app = express()
+const initRoutes = require("./routes/web");
 app.use(express.static(path.join(__dirname, "/build")))
 app.use(bodyParser.json())
 
@@ -42,6 +45,27 @@ app.post("/api/produce/upload-file", async (req,res) => {
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname + "/build/index.html"))
 })
+
+app.use(express.urlencoded({ extended: true }));
+initRoutes(app)
+
+// view engine setup
+const cookieParser = require("cookie-parser")
+const mongoose = require("mongoose")
+mongoose.Promise = require("bluebird")
+const ImageRouter = require("./Image")
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+app.use(logger('dev'));
+app.use('/uploads', express.static('uploads'));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/image', ImageRouter);
 
 const PORT = process.env.PORT || 8000;
 //const PORT = 8000;
