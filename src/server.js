@@ -33,7 +33,28 @@ const port = process.env.PORT || 8000;
 const server = app.listen(port, () => {
     console.log('Connected to port ' + port)
 })
+/*
+app.use(express.urlencoded({ extended: true }));
+initRoutes(app)
 
+// view engine setup
+const cookieParser = require("cookie-parser")
+const mongoose = require("mongoose")
+mongoose.Promise = require("bluebird")
+const ImageRouter = require("./Image")
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+app.use(logger('dev'));
+app.use('./uploads', express.static('uploads'));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/image', ImageRouter);
+*/
 app.use((req, res, next) => {
     // Error goes via `next()` method
     setImmediate(() => {
