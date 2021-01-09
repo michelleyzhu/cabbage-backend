@@ -41,7 +41,7 @@ router.post('/user-profile', upload.single('profileImg'), (req, res, next) => {
     });
     
     /// DEBUGG!!!!
-    console.log(`registering user at url ${user.profileImg} or sending it back`)
+    //console.log(`registering user at url ${user.profileImg} or sending it back`)
 
 
     user.save().then(result => {
@@ -53,7 +53,7 @@ router.post('/user-profile', upload.single('profileImg'), (req, res, next) => {
             }
         })
     }).catch(err => {
-        console.log(err),
+        console.log(`${err} error??? hello????`),
             res.status(500).json({
                 error: err
             });
