@@ -43,8 +43,6 @@ router.post('/user-profile', upload.single('profileImg'), (req, res, next) => {
     /// DEBUGG!!!!
     //console.log(`registering user at url ${user.profileImg} or sending it back`)
 
-    // trainModel(profileImg); ???????
-
     user.save().then(result => {
         res.status(201).json({
             message: "User registered successfully!",
