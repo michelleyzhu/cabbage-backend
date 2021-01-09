@@ -1,3 +1,8 @@
+// import express from "express"
+// import bodyParser from "body-parser"
+//import {MongoClient} from "mongodb"
+import path from "path"
+
 let express = require('express'),
     mongoose = require('mongoose'),
     cors = require('cors'),
@@ -5,6 +10,7 @@ let express = require('express'),
     dbConfig = require('./database/db');
 
 const api = require('./routes/user.routes')
+
 
 // MongoDB Configuration
 mongoose.Promise = global.Promise;
@@ -19,6 +25,7 @@ mongoose.connect("mongodb+srv://cabbageDb:peachDb@cluster0.b6n76.mongodb.net/<db
 )
 
 const app = express();
+app.use(express.static(path.join(__dirname, "/build")))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -67,3 +74,7 @@ app.use(function (err, req, res, next) {
     if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);
 });
+
+app.get("*", (req, res) => {
+    rest.sendFile(path.join(__dirname + "/build/index.html"))
+})
