@@ -3,6 +3,8 @@ let express = require('express'),
     mongoose = require('mongoose'),
     { v4: uuidv4 } = require('uuid'),
     router = express.Router();
+    //tf = require("@tensorflow/tfjs"),
+    //tfn = require("@tensorflow/tfjs-node");
 
 const DIR = './public/';
 
@@ -32,13 +34,17 @@ var upload = multer({
 let User = require('../models/User');
 
 router.post('/user-profile', upload.single('profileImg'), (req, res, next) => {
-    //console.log(url);
     const url = req.protocol + '://' + req.get('host')
     const user = new User({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         profileImg: url + '/public/' + req.file.filename
     });
+    
+
+    //const handler = tfn.io.fileSystem(user.profileImg)
+    //const model = tf.loadLayersModel('http://localhost:8000/public/models/applesModel.json')
+    //user.prediction = model.predict(user.profileImg)
     
     /// DEBUGG!!!!
     //console.log(`registering user at url ${user.profileImg} or sending it back`)
