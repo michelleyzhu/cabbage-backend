@@ -11,7 +11,6 @@ let express = require('express'),
 
 const api = require('./routes/user.routes')
 
-
 // MongoDB Configuration
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb+srv://cabbageDb:peachDb@cluster0.b6n76.mongodb.net/<dbname>?retryWrites=true&w=majority", {
@@ -36,7 +35,7 @@ app.use('/public', express.static('public'));
 
 app.use('/api', api)
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
     console.log('Connected to port ' + port)
 })
